@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>xxx</title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+<h1>&nbsp;{{ video_title }}</h1>
+<div class="row">
+    <div class="col-md-offset-2">
+
+        <video id="video" width="658" height="444" autoplay="autoplay" controls="controls" onclick="playPause()">
+
+            <source src="{{ video_link }}"/>
+            Your browser does not support HTML5 video.
+        </video>
+        <img src="/static/image/play.jpg" onclick="window.open('https://github.com/summerlove66')">
+    </div>
+</div>
+
+</body>
+
+<script>
+    window.onload = function () {
+        $("img").hide();
+        var myVideo = document.getElementById("video");
+
+        function eventTester(e) {
+            myVideo.addEventListener(e, function () {
+
+                if (e == 'pause') {
+                    $('img').show();
+                } else {
+                    $('img').hide();
+                }
+
+            });
+        }
+
+        eventTester("pause");
+        eventTester("play");
+    }
+
+</script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+</html>

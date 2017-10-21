@@ -1,0 +1,18 @@
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background-color: #333333;
+}
+
+textarea {
+    border: 0;
+    background-color: transparent;
+}
+
+.showtitle {
+    width: 3px;
+    height: 3px;
+    background-color: transparent;
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Porn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<nav class="navbar  navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">My Porn</a>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-2">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">Asia</a></li>
+                    <li><a href="#">West</a></li>
+                    <li><a href="#">Top Score</a></li>
+                </ul>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn">search</button>
+                </form>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span>register</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>login</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</nav>
+
+{% block body%}
+<ul class="list-inline">
+    {% for video in last_video_list %}
+        <li>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-2">
+                        <a href="/video/{{ video.id }}/">
+                            <img src="{{ video.video_image }}" width="180">
+                        </a>
+
+                    </div>
+                    <div class="col-md-5">
+                        <p><a href="/video/{{ video.id }}/">{{ video.video_title }}</a></p>
+                        <p>时间 ：{{ video.video_length }}</p>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        <li>
+
+    {% endfor %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-md-offset-2">
+                <a href="/page/1">显示全部</a>
+            </div>
+        </div>
+    </div>
+    </li>
+
+</ul>
+
+{% endblock  %}
+</body>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+</html>

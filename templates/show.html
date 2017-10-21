@@ -1,0 +1,51 @@
+{% extends 'index.html' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                {% for video in video_page_list %}
+                    <div class="col-sm-3 col-md-2 col-lg-2">
+                        <div class="thumbnail">
+                            <img src="{{ video.video_image }}">
+                            <div class="caption">
+                                <a href="/video/{{ video.id }}"><textarea cols="10"
+                                                                          rows="3">{{ video.video_title }}</textarea></a>
+                                <p>时间: {{ video.video_length }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <footer>
+        <div class="cotainer">
+            <div class="row">
+                <div class="col-md-offset-4">
+                    <ul class="pagination">
+                        {% if cur_page == 1 %}
+                            <li><a href="#"> 《 </a></li>
+                        {% else %}
+                            <li><a href="/page/{{ cur_page|add:-1 }}"> 《</a></li>
+                        {% endif %}
+
+                        <li><a href="/page/{{ cur_page }}">{{ cur_page }}</a></li>
+
+                        {% if cur_page < pagenum %}
+                            <li><a href="/page/{{ cur_page|add:1 }}"> 》 </a></li>
+                        {% else %}
+                            <li class="disable"><a href="#"> 》 </a></li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+{% endblock %}
