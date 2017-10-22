@@ -28,7 +28,7 @@ def play(request ,vid):
     v = Video.objects.filter(id =vid).first()
     v_update = v.video_update
 
-    if (timezone.now() -v_update).total_seconds() >200:
+    if (timezone.now() -v_update).total_seconds() >3600 :  
         print("more than 1 hours  refresh the video link")
         v.video_link = refresh_video_link(v)
         v.video_recomend  =0
