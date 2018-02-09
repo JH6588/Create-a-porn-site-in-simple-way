@@ -1,8 +1,10 @@
 import requests
-
+import traceback
 import lxml.html
 import re
-from video.models import Video
+import  random
+
+from media.models import Video
 
 headers ={ "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"}
 
@@ -17,18 +19,23 @@ class XXXpron():
             item={}
             try:
                 video_url = self.domain +ele.cssselect("p a[title]")[0].get("href")
+                print(video_url)
                 item['video_url'] = video_url
                 item['video_link'] = self.get_video_link(video_url)
-                video_image_text= ele.cssselect("script")[0].text
-                item['video_image'] = re.search("<img src=\"(.*?)\"" ,video_image_text).group(1)
-                item['video_length'] = ele.cssselect("strong")[0].text
+               # video_image_text= ele.cssselect("img['data-videoid']")[0].text
+                item['video_image'] = ele.cssselect("img[data-videoid]")[0].get("data-src")
+                item['video_length'] = ele.cssselect("p.metadata span.duration")[0].text
                 item['video_source'] ="xvideos"
                 item['video_title'] = ele.cssselect("p a[title]")[0].text
-                item['video_quality'] =int(ele.cssselect("span.bg span.mobile-hide")[0].text.replace("% -","").strip())
+
+                #由于网站改版删除了原来的 quality字段 ，所以现在直接将其设为随机
+                item['video_quality'] = random.randint(50,90)
+               # item["video_views"] = ele.cssselect("span.bg span.mobile-hide")[0].text.replace("% -","").strip()
 
                 yield item
             except Exception as e:
-                print("Exception:{}".format(e))
+                print("错误:{}".format(e))
+                traceback.print_exc()
     @staticmethod
     def get_video_link(url):
 
