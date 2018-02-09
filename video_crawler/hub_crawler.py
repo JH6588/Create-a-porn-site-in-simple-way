@@ -1,12 +1,12 @@
 import re
-
+import traceback
 import lxml.html
 import requests
 import os
 import django
-os.environ["DJANGO_SETTINGS_MODULE"]= "sesite.settings"
+os.environ["DJANGO_SETTINGS_MODULE"]= "jsh_sesite.settings"
 django.setup()
-from video.models import Video
+from media.models import Video
 
 #240*180
 
@@ -21,10 +21,10 @@ class Pronhub:
         item = {}
         for ele in tree.xpath("//li/div[@class ='wrap']"):
             try:
-                video_url =  self.domain +ele.xpath(".//span[@class ='title']/a/@href")[0]
+                video_url =  self.domain +ele.xpath(".//a[@data-related-url]/@href")[0]
                 item['video_url'] = video_url
-                item['video_title'] = ele.xpath(".//span[@class ='title']/a/@title")[0]
-                item['video_image'] = ele.xpath(".//div[@class ='img videoPreviewBg']//img/@data-mediumthumb")[0]
+                item['video_title'] = ele.xpath(".//a[@data-related-url]/@title")[0]
+                item['video_image'] = ele.xpath(".//img/@data-mediumthumb")[0]
                 item['video_length'] = ele.xpath(".//var[@class='duration']/text()")[0]
                 item['video_quality'] = int(ele.xpath(".//div[@class ='value']/text()")[0].replace("%","").strip())
                 item['video_link'] = Pronhub.get_video_link(video_url )
@@ -32,7 +32,8 @@ class Pronhub:
 
                 yield item
             except Exception as e:
-                print("Exception",e)
+                print(e)
+                print(traceback.print_exc())
                 pass
 
 
