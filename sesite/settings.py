@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -75,17 +76,13 @@ WSGI_APPLICATION = 'sesite.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+db_config = dj_database_url.config(default='postgres://testinvestment:Kt7NvcwtMXkNPbi@localhost:5432/porn', ssl_require=False)
+db_config['ATOMIC_REQUESTS'] = True
+db_config['ENGINE'] = 'django.db.backends.postgresql'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': "porn",
-        "USER": "root",
-        "PASSWORD": "123456",
-        "HOST": "localhost",
-        "PORT": "3306"
-    }
+    'default': db_config
 }
 
 # Password validation
